@@ -23,7 +23,9 @@ class Measures {
   private int cols;
   private int baseX;
   private boolean guessed;
-  private static int bankRows;       // <= 107 374 182 with cellHeight = 20
+  //PR#2291: To fit the contents of the RAM component
+  //in the hex editor, they have been banked in chunks of 1024 MB
+  private static int bankRows;
 
   public Measures(HexEditor hex) {
     this.hex = hex;
@@ -50,7 +52,7 @@ class Measures {
       while (addrEnd > (1L << logSize)) {
         logSize++;
       }
-      headerChars = Math.min((logSize + 3) / 4, 8);  // máx 8 dígitos hex para 32 bits
+      headerChars = Math.min((logSize + 3) / 4, 8);  // ensure max is 8 hex digits for 32 bits
       cellChars = (model.getValueWidth() + 3) / 4;
     }
 
